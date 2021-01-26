@@ -20,24 +20,11 @@ Ceci a été réalisé augmentant le jeu de données en mélangeant l’échanti
 
 Les échantillons sont maintenant un mel spectrogram à l’échelle grise de 0,5 s.
 
+Toutes les données du projet se trouvent à : https://drive.google.com/drive/folders/1deqYCDye5l95RGJCeKXlcqH9Ras7lRQr?usp=sharing
 
-All the data of the project can be found at : https://drive.google.com/drive/folders/1deqYCDye5l95RGJCeKXlcqH9Ras7lRQr?usp=sharing
+En ce moment, nous avons normalisé les données et nous utilisons une nouvelle structure de modèle en utilisant GlobalAveragePooling2D qui a donné un énorme coup de pouce de performance à la version précédente. Nous sommes passés de 68-75% à 80-84% de précision sur notre ensemble de test créé à partir du webapp. En ce moment, nous sommes en cours d’optimisation hyperparameters et vous pouvez tout vérifier à: https://app.wandb.ai/mastersplinter/CoughDetect/sweeps/phdtst8z
 
-Right now we have normalized the data and we use a new model structure using GlobalAveragePooling2D which gave a huge performance
-boost to the previous version. We went from 68-75% to 80-84% accuracy on our test set created from the webapp.
-Right now we are running hyperparameters optimization and you can check out everything at:
-https://app.wandb.ai/mastersplinter/CoughDetect/sweeps/phdtst8z
-
-### Next
-
-- Data processing hyperparameters
-- Testing different sample length and optimize them
-
-### Resources that inspired this:
-
-- https://arxiv.org/pdf/2004.01275.pdf (for initial model architecture)
-- https://www.mi.t.u-tokyo.ac.jp/assets/publication/LEARNING_ENVIRONMENTAL_SOUNDS_WITH_END-TO-END_CONVOLUTIONAL_NEURAL_NETWORK.pdf
-- https://www.cs.tut.fi/~tuomasv/papers/ijcnn_paper_valenti_extended.pdf
-- https://adventuresinmachinelearning.com/global-average-pooling-convolutional-neural-networks/
-- https://arxiv.org/pdf/1809.04437.pdf
-- https://arxiv.org/pdf/1711.10282.pdf
+prochain
+Hyperparamètres de traitement de données
+Tester différentes longueurs d’échantillon et les optimiser
+Ressources qui ont inspiré ceci :
