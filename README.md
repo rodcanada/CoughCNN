@@ -1,46 +1,25 @@
-# CoughCNN
+CoughCNN QC DATASETS
 
-## Covid Anomaly detection model
+Modèle de détection des anomalies covid
+En raison de l’absence de suffisamment d’échantillons de toux covid, et des caractéristiques précises dans ces toux qui le classent comme covid; nous ne pouvons pas utiliser une approche simple d’apprentissage supervisé. Au lieu de cela, l’approche adoptée actuellement est un non supervisé (qui se tournera vers semi-supervisé plus tard en utilisant les données avaiables pour affiner le modèle) à l’aide d’un autoencoder. L’autoencoder prend tous les échantillons de toux non covid qui ont été détectés par le modèle en spectro et les utilise comme un ensemble de données de formation, l’autoencoder apprend la représentation d’une toux « normale » et comment le recréer (résume l’échantillon en utilisant des convolutions, puis reconstruit l’échantillon en utilisant une transposition de la convolution). Lorsqu’une toux qui n’était pas semblable à celles qui se trouvaient dans l’ensemble de données (qui, avec suffisamment de données, devrait être pointée du côté de la toux covid), l’erreur que le modèle fera lors de la recréation de l’échantillon fourni (calculer à l’aide du MSE de l’image originale avec celle créée par le modèle) sera élevée et l’échantillon sera étiqueté comme une anomalie.
 
-Due to the lack of enough covid cough samples, and of the precise features in those coughs which classify it as covid;
-we cannot use a simple supervised learning approach. Instead the approach taken currently is an unsupervised (which will
-turn to semisupervised later using the avaiable data to refine the model) using an autoencoder. The autoencoder takes all
-the non-covid cough samples which have been detected by the model in `spectro` and uses them as a training dataset, the autoencoder
-learns the representation of a "normal" cough and how to recreate it (boils down the sample using convolutions and then re-builds
-the sample using a transposition of the convolution). When a cough that was not similar to the ones which were in the dataset 
-(which with enough data should be singled out to the covid coughs) the error which the model will make at recreating the sample
-provided (calculate useing MSE of the original image with the one created by the model) will be high and the sample will be
-labeled as an anomaly.
+Actuelle
+Sous le dossier covid il ya deux fichiers: model.py, contient le code pour l’autoencoder et le MSE appliqué au melspectrogram, cela ne fonctionne toujours pas malheureusement, je suis peaufiner la forme d’entrée des échantillons en augmentant la longueur de l’échantillon et le nombre de mels par échantillon, mais je reçois toujours des problèmes. processing.ipynb contient le traitement des données pour créer l’ensemble de données utilisé
 
-### Current
+short-spectro est un dossier clone de spectro, mais contient les scripts pour rendre les données appropriées pour le modèle de détection des anomalies, une fois qu’une solution stable pour la détection des anomalies sera terminée tous les échantillons seront dans le même format et utilisable dans n’importe quel modèle. A partir de maintenant, je vais garder les deux séparés.
 
-Under the folder `covid` there are two files:
-**model.py**, contains the code for the autoencoder and the MSE applied to the melspectrogram, this still does not work unfortunately
-I'm tweaking the input shape of the samples by increasing the sample length and the number of mels per sample but I'm still getting
-problems. 
-**processing.ipynb** contains the data processing to create the dataset used
+Voici toutes les données traitées par le spectro court: https://drive.google.com/file/d/1aAMGHTFJjiv7K6DrN_1DptcCeA3Efmbk/view?usp=sharing
 
-**short-spectro** is a clone folder of `spectro` but contains the scripts to make the data suitable for the anomaly detection model,
-once a stable solution for the anomaly detection will be finished all the samples will be in the same format and usable in any model. 
-As of now I'll be keeping both separate.
+Log Melspectrogram
+Sous le spectro dossier, vous pouvez trouver toute l’approche en utilisant les melspectrograms pour former un réseau neuronal convolutionnel
 
-Here is all the data processed by the short-spectro: https://drive.google.com/file/d/1aAMGHTFJjiv7K6DrN_1DptcCeA3Efmbk/view?usp=sharing
+Actuelle
+À l’heure actuelle, les données qui ont été utilisées proviennent d’un ensemble de données sur la toux de : https://www.karger.com/Article/FullText/504666 et l’utilisation de données étiquetées manuellement provenant de notre webapp. L’ensemble de données de test est également de nombreuses données étiquetées provenant de notre webapp, mais que obviosly le CNN n’a pas vu avant.
 
-## Log Melspectrogram
+Ceci a été réalisé augmentant le jeu de données en mélangeant l’échantillon de toux avec un certain bruit de fond pour les rendre plus réels. Il a été utilisé une ration de mélange de 0,25 (0,25 du signal sonore ajouté) à l’aide de l’ensemble de données musan https://www.openslr.org/17/
 
-Under the folder `spectro` you can find the whole approach using the melspectrograms to train a Convolutional Neural Network
+Les échantillons sont maintenant un mel spectrogram à l’échelle grise de 0,5 s.
 
-### Current
-
-Right now the data that has been used comes from a cough dataset from: https://www.karger.com/Article/FullText/504666
-and using manually labeled data coming from our webapp. The testing dataset is also manyally labeled data coming
-from our webapp but that obviosly the CNN has not seen before.
-
-This was acheived augmenting the dataset by mixing the cough sample with some background noise to make them
-more real world. It was used a mixing ration of 0.25 (0.25 of the noise signal added) using the musan dataset
-https://www.openslr.org/17/
-
-The samples are now a grayscale melspectrogram of 0.5s.
 
 All the data of the project can be found at : https://drive.google.com/drive/folders/1deqYCDye5l95RGJCeKXlcqH9Ras7lRQr?usp=sharing
 
