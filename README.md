@@ -1,4 +1,6 @@
-CoughCNN QC DATASETS
+Cough CNN 
+
+AVEC QC DATASET
 
 Modèle de détection des anomalies covid
 En raison de l’absence de suffisamment d’échantillons de toux covid, et des caractéristiques précises dans ces toux qui le classent comme covid; nous ne pouvons pas utiliser une approche simple d’apprentissage supervisé. Au lieu de cela, l’approche adoptée actuellement est un non supervisé (qui se tournera vers semi-supervisé plus tard en utilisant les données avaiables pour affiner le modèle) à l’aide d’un autoencoder. L’autoencoder prend tous les échantillons de toux non covid qui ont été détectés par le modèle en spectro et les utilise comme un ensemble de données de formation, l’autoencoder apprend la représentation d’une toux « normale » et comment le recréer (résume l’échantillon en utilisant des convolutions, puis reconstruit l’échantillon en utilisant une transposition de la convolution). Lorsqu’une toux qui n’était pas semblable à celles qui se trouvaient dans l’ensemble de données (qui, avec suffisamment de données, devrait être pointée du côté de la toux covid), l’erreur que le modèle fera lors de la recréation de l’échantillon fourni (calculer à l’aide du MSE de l’image originale avec celle créée par le modèle) sera élevée et l’échantillon sera étiqueté comme une anomalie.
